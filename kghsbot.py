@@ -7,7 +7,7 @@ blank = ' '
 def mealparse(date, weekday):
     eduOfficeURL='stu.sen.go.kr'
     schulCode='B100000375'
-    schulKndScCode='04' # 학교 분류에 맞는 값으로 수정하세요
+    schulKndScCode='04' 
     URL = ( 'http://' + eduOfficeURL + '/sts_sci_md01_001.do?'
             'schulCode=' + schulCode +
             '&schulCrseScCode=' + str(int(schulKndScCode)) +
@@ -15,12 +15,12 @@ def mealparse(date, weekday):
             '&schMmealScCode=2'
             '&schYmd=' + date
     )
-    #print(URL) # 디버깅에 사용
-    html = req.get(URL).text # 생성한 URL의 html 저장
-    soup = BeautifulSoup(html, 'html.parser') # BeautifulSoup 객체 생성
-    data = soup.find_all('tr')[2].find_all('td') # 식단표 부분 데이터만 찾아서 저장
-    #print(data) # 디버깅에 사용
-    try: # 급식이 없는 경우 공백(blank)을 리턴
+    #print(URL) 
+    html = req.get(URL).text 
+    soup = BeautifulSoup(html, 'html.parser') 
+    data = soup.find_all('tr')[2].find_all('td') 
+    #print(data) 
+    try: 
         data = data[day] # 요청받은 요일의 데이터만 가져옴
         data = str(data) # <class 'bs4.data.Tag'>에서 <class 'str'>로 type 바꿈
         filter_list = ['[', ']', '<td class="textC">', '<td class="textC last">', '</td>', '.'] # 필터 리스트
